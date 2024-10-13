@@ -1,0 +1,49 @@
+<table class="task-table">
+    <thead>
+        <tr>
+            <th>Assigned To</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Priority</th>
+            <th>Comments</th>
+        
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let task of taskList">
+            <tr>
+                <td><a href="#">{{task.assignedTo}}</a></td>
+                <td>{{task.status}}</td>
+                <td>{{task.dueDate}}</td>
+                <td>{{task.priority}}</td>
+                <td>
+                    <div class="task-container">
+                        <span>{{task.description}}</span>
+                        <div class="dropdown">
+                            <button class="more-btn"> &#x25BC;</button>
+                            <div class="dropdown-content">
+                                <a href="#" class="edit-option" (click)="onEdit(task.id)">Edit</a>
+                                <a href="#" class="delete-option" (click)="showDeleteTaskNotification(task.id)">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </td>            
+            </tr>
+        </ng-container>
+    </tbody>
+</table>
+
+
+<ng-container *ngIf="isDeletePopUpShow">
+    <div class="modal">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <span class="close" (click)="closeDeleteTaskNotification()">&times;</span>
+            <div class="container">
+                <h2 class="delete-title">Delete</h2>
+                <p class="delete-msg">Do you want to delete task {{selectedTask.description}}?</p>
+                <button class="no" (click)="closeDeleteTaskNotification()">No</button>
+                <button class="yes" (click)="deleteTask()">Yes</button>
+              </div>
+        </div>
+    </div>
+</ng-container>

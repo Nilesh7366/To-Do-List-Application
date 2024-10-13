@@ -1,0 +1,61 @@
+isVisible: {{taskService.isVisible}}
+<div class="modal" *ngIf="taskService.isVisible" (click)="close()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="close()">&times;</span>
+        <div class="task-form-container">
+            <h2 *ngIf="!selectedTask.id">New Task</h2>
+            <h2 *ngIf="selectedTask.id">Edit Task</h2>
+            <form (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="assignedTo">*Assigned To</label>
+                        <select id="assignedTo" name="assignedTo" [(ngModel)]="assignedTo">
+                            <option value="user1">User 1</option>
+                            <option value="user2">User 2</option>
+                            <option value="user3">User 3</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">*Status</label>
+                        <select id="status" name="status" [(ngModel)]="status">
+                            <option value="notStarted">Not Started</option>
+                            <option value="inProgress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dueDate">Due Date</label>
+                        <input type="date" id="dueDate" name="dueDate" [(ngModel)]="dueDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">*Priority</label>
+                        <select id="priority" name="priority" [(ngModel)]="priority">
+                            <option value="normal">Normal</option>
+                            <option value="high">High</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="4" [(ngModel)]="description"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="cancel-btn">Cancel</button>
+                    <button type="submit" class="save-btn">Save</button>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>

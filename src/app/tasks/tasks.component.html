@@ -1,0 +1,29 @@
+<div class="task-list-container">
+    <div class="task-list-header">
+        <i class="fa-solid fa-list-check head-title"></i>
+        <span class="head-title">Tasks</span> <br>
+        <button class="button new-task" (click)="addNewTask()">New Task</button>
+        <button class="button refresh-task">Refresh</button><br>
+        <span class="count">{{taskService.taskList.length}} records</span>
+        <input type="text" id="task-search" placeholder="Search Tasks" [(ngModel)]="searchText"
+            (keyup)="searchTask($event)">
+    </div>
+
+    <ng-container *ngIf="taskList.length>0">
+        <tasks-list [taskList]="taskList[page]" (editTask)="onEdit($event)" (delete)="onDelete()"></tasks-list>
+        <div class="pagination">
+            <button (click)="getFirstLastPageTask(true)">« First</button>
+            <button (click)="nextPreviousPage(false)">‹ Prev</button>
+            <button> {{page+1}}</button>
+            <button (click)="nextPreviousPage(true)">Next ›</button>
+            <button (click)="getFirstLastPageTask(false)">Last »</button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="taskService.isVisible">
+        <add-edit-task [selectedTask]="selectedTask" (saveTask)="saveTask()"></add-edit-task>
+    </ng-container>
+
+    <ng-container *ngIf="taskList.length===0">
+        <h4>No tasks avialable, please create new task...</h4>
+    </ng-container>
+</div>
